@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <title>GameGrumps Bingo</title>
+      <!-- Using the latest rendering mode for IE -->
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="author" content="William Mak" />
+      <style>
+         .active {
+            border: 2px solid red;
+         }
+         
+         .inactive {
+            border: 2px solid black;
+         }
+
+         tr, td {
+            padding: 0;
+            height: 110px;
+            display: flex;
+         }
+
+         table {
+            border-spacing: 0px;
+         }
+      </style>
+   </head>
+   <body>
+      <img src='images/header.png'/>
+      <table id='table'>
+      </table>
+      <script type="text/javascript">
+         function shuffle(a) {
+             var j, x, i;
+             for (i = a.length - 1; i > 0; i--) {
+                 j = Math.floor(Math.random() * (i + 1));
+                 x = a[i];
+                 a[i] = a[j];
+                 a[j] = x;
+             }
+             return a;
+         }
+         function toggle(el) {
+            if (el.target.getAttribute('class') === 'inactive') {
+               el.target.setAttribute('class', 'active');
+            } else {
+               el.target.setAttribute('class', 'inactive');
+            }
+         }
+         var images = shuffle(Array.from(Array(25).keys()).splice(1,24));
+         var table = document.getElementById('table');
+         var currentRow = undefined;
+         for (var i = 0; i < 25; i++) {
+            if (i % 5 === 0) {
+               currentRow = document.createElement('tr');
+               currentRow.setAttribute('id', 'row-' + i/5);
+               table.append(currentRow);
+            }
+            currentCol = document.createElement('td');
+            currentCol.setAttribute('class', 'col-' + i%5);
+
+            currentImg = document.createElement('img');
+            if (i < 12) {
+               var image = images[i + 1];
+            } else if (i > 12) {
+               var image = images[i - 1];
+            } else {
+               var image = '0';
+            }
+            currentImg.setAttribute('src', 'images/' + image + '.png');
+            currentImg.setAttribute('class', 'inactive');
+            currentImg.addEventListener("click", toggle, false);
+
+            currentCol.append(currentImg);
+            currentRow.append(currentCol);
+         }
+      </script>
+      <!-- Google Analytics -->
+      <script type="text/javascript">
+
+         var _gaq = _gaq || [];
+         _gaq.push(['_setAccount', 'UA-48091655-1']);
+         _gaq.push(['_trackPageview']);
+
+         (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+         })();
+      </script>
+      <!-- End Google Analytics Code -->
+   </body>
+</html>
