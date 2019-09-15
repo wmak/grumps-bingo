@@ -14,20 +14,41 @@
       <meta property="og:image" content="https://wmak.github.io/grumps-bingo/images/preview.jpg"/>
       <meta property="og:description" content="Refreshing the page for a new sheet! Click the images to mark them."/>
       <style>
+         #container {
+            margin: 0 10vw 0 10vw;
+         }
+
          .active {
             border: 2px solid red;
-            filter: drop-shadow(2px 4px 6px black) contrast(0.8) brightness(1.2) hue-rotate(30deg) saturate(4);
+            filter: contrast(0.8) brightness(1.2) hue-rotate(30deg) saturate(2);
          }
          
          .inactive {
             border: 2px solid black;
-            filter: saturate(0.5);
+            filter: brightness(0.8) saturate(0.5);
+         }
+
+         #header {
+            display: block;
+            margin: auto;
+            width: 80vw;
+            max-height: 15vh;
+            max-width: 41.89vh;
+         }
+
+         td img {
+            height: 15vw;
+            width: 15vw;
+            max-height: 15vh;
+            max-width: 15vh;
          }
 
          tr, td {
             padding: 0;
-            height: 110px;
+            height: 15vw;
+            max-height: 15vh;
             display: flex;
+            padding: 2px 0 2px 0;
          }
 
          span {
@@ -36,14 +57,17 @@
 
          table {
             border-spacing: 0px;
+            margin: auto;
          }
       </style>
    </head>
    <body>
-      <span> Refresh the page for a new sheet! Click the images to mark them. </span>
-      <img src='images/header.png'/>
-      <table id='table'>
-      </table>
+      <div id='container'>
+         <span> Refresh the page for a new sheet! Click the images to mark them. </span>
+         <img id='header' src='images/header.png'/>
+         <table id='table'>
+         </table>
+      </div>
       <script type="text/javascript">
          function shuffle(a) {
              var j, x, i;
