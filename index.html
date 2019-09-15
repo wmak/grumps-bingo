@@ -55,7 +55,41 @@
                el.target.setAttribute('class', 'inactive');
             }
          }
-         var images = shuffle(Array.from(Array(25).keys()).splice(1,24));
+         function swap(images, a, b) {
+            x = images[a];
+            images[a] = images[b];
+            images[b] = x;
+            return images
+         }
+         var images = shuffle(Array.from(Array(25).keys()));
+         // Arin putting something in his mouth needs to be the freespace
+         images = swap(images, images.indexOf(0), 12);
+         // The grumps winning should be in different rows/cols
+         var arin_win = images.indexOf(1);
+         var dan_win = images.indexOf(2);
+         if (Math.floor(arin_win/5) == Math.floor(dan_win/5)) {
+            // same row
+            var win_row = Math.floor(arin_win/5);
+            if (win_row < 4) {
+               shift = 5;
+            } else {
+               shift = -5;
+            }
+            images = swap(images, arin_win, arin_win + shift);
+         }
+         if (Math.floor(arin_win % 5) == Math.floor(dan_win % 5)) {
+            // same col
+            var win_col = Math.floor(arin_win % 5);
+            if (win_col < 4) {
+               shift = 1;
+            } else {
+               shift = -1;
+            }
+            images = swap(images, arin_win, arin_win + shift);
+         }
+         // Arin putting something in his mouth needs to be the freespace
+         images = swap(images, images.indexOf(0), 12);
+
          var table = document.getElementById('table');
          var currentRow = undefined;
          for (var i = 0; i < 25; i++) {
@@ -68,14 +102,7 @@
             currentCol.setAttribute('class', 'col-' + i%5);
 
             currentImg = document.createElement('img');
-            if (i < 12) {
-               var image = images[i];
-            } else if (i > 12) {
-               var image = images[i - 1];
-            } else {
-               var image = '0';
-            }
-            currentImg.setAttribute('src', 'images/' + image + '.png');
+            currentImg.setAttribute('src', 'images/' + images[i] + '.png');
             currentImg.setAttribute('class', 'inactive');
             currentImg.addEventListener("click", toggle, false);
 
