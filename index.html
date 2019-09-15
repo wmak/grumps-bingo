@@ -16,11 +16,12 @@
       <style>
          .active {
             border: 2px solid red;
-            filter: drop-shadow(2px 4px 6px black) contrast(0.8) brightness(1.2);
+            filter: drop-shadow(2px 4px 6px black) contrast(0.8) brightness(1.2) hue-rotate(30deg) saturate(4);
          }
          
          .inactive {
             border: 2px solid black;
+            filter: saturate(0.5);
          }
 
          tr, td {
